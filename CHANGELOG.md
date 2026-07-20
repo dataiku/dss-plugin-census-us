@@ -1,4 +1,8 @@
 # Changelog
+## Version 0.6.0 - Enhancement release - 2026-07-20
+
+- Added supported Python versions: 3.12, 3.13, 3.14
+
 ## Version 0.5.0 - 2023-04
 - Add supported Python versions:
   - 3.8
