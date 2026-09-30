@@ -158,13 +158,13 @@ with output_dataset.get_writer() as writer:
 
                         if P_KEEP_NON_MATCHING is True:
                             if len(res_parsed)==6:
-                                d = pd.DataFrame([res_parsed],columns=out_cols[:6]).to_dict('record')[0]
+                                d = pd.DataFrame([res_parsed],columns=out_cols[:6]).to_dict('records')[0]
                                 
                                 
                             elif len(res_parsed)==7:
                                 res_parsed[1] = res_parsed[1] + res_parsed[2]
                                 del res_parsed[2]
-                                d = pd.DataFrame([res_parsed],columns=out_cols[:6]).to_dict('record')[0]
+                                d = pd.DataFrame([res_parsed],columns=out_cols[:6]).to_dict('records')[0]
 
 
                             else:

@@ -1,6 +1,7 @@
 bs4
 requests[security]
-xlrd==1.2.0
+xlrd==1.2.0; python_version < "3.8"
+xlrd>=2.0.1; python_version >= "3.8"
 scipy
 scikit-learn
 openpyxl
