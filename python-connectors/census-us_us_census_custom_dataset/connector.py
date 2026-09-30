@@ -44,9 +44,8 @@ class USCensusConnector(Connector):
         metadata_status = metadata_results[0]
         df_metadata_source = metadata_results[1]
         
-        mlist = list(df_metadata_source['name'])
-        
         if metadata_status =='ok':
+            mlist = list(df_metadata_source['name'])
             ok_fields_list = [c for c in fields_list if c in mlist]
             all_fields_list = ['GEOID_DKU','STUSAB'] + ok_fields_list
             
@@ -54,7 +53,7 @@ class USCensusConnector(Connector):
             logger.info(metadata_status)
             all_fields_list = ['GEOID_DKU','STUSAB'] + fields_list
         
-        if self.P_STATES_TYPE_NAME is not 'state_2letters': 
+        if self.P_STATES_TYPE_NAME != 'state_2letters':
             all_fields_list = all_fields_list + [self.P_STATES_TYPE_NAME]
         
         
@@ -130,7 +129,7 @@ class USCensusConnector(Connector):
 
 
             geo_header_file_dir = fdef_dir + '/' + geo_header_file       
-            geo_header = pd.read_excel(geo_header_file_dir, sheet_name=0, header=0) #sheetname
+            geo_header = pd.read_excel(geo_header_file_dir, sheet_name=0, header=0, engine="openpyxl" if geo_header_file_dir.lower().endswith(".xlsx") else "xlrd") #sheetname
 
 
             census_level_code_len = census_resources.dict_level_corresp['v1'][self.P_CENSUS_LEVEL]['code_len']
@@ -212,11 +211,11 @@ class USCensusConnector(Connector):
                     
                     try:
                         HEADER_PATH_FILE = fdef_dir + '/'+ seq_folder_name +'/Seq' + str(int(segment_number)) + template_fields_def['seq_files_extension']                        
-                        header_df = pd.read_excel(HEADER_PATH_FILE,sheet_name=0) ### 0 = 'E' #sheetname
+                        header_df = pd.read_excel(HEADER_PATH_FILE, sheet_name=0, engine="openpyxl" if HEADER_PATH_FILE.lower().endswith(".xlsx") else "xlrd") ### 0 = 'E' #sheetname
                         
                     except:
                         HEADER_PATH_FILE = fdef_dir + '/'+ seq_folder_name +'/seq' + str(int(segment_number)) + template_fields_def['seq_files_extension']                        
-                        header_df = pd.read_excel(HEADER_PATH_FILE,sheet_name=0) ### 0 = 'E' #sheetname
+                        header_df = pd.read_excel(HEADER_PATH_FILE, sheet_name=0, engine="openpyxl" if HEADER_PATH_FILE.lower().endswith(".xlsx") else "xlrd") ### 0 = 'E' #sheetname
                     
 
                     ### Adjust the header to fit what we need.
@@ -252,7 +251,7 @@ class USCensusConnector(Connector):
                 #del geo_level_df['STUSAB']
                 del geo_level_df['LOGRECNO']
 
-                if self.P_STATES_TYPE_NAME is not 'state_2letters':
+                if self.P_STATES_TYPE_NAME != 'state_2letters':
                     geo_level_df[self.P_STATES_TYPE_NAME] = dict_states[state]['attributes'][self.P_STATES_TYPE_NAME]
                     
 

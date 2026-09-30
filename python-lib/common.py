@@ -62,7 +62,7 @@ def state_to_2letters_format(P_STATES_TYPE_NAME, state_list_):
     state_list = [s for s in state_list_ if s in dict_states_.keys()]
     state_list_rejected = [sr for sr in state_list_ if sr not in dict_states_.keys()]
     
-    if P_STATES_TYPE_NAME is not 'state_2letters':        
+    if P_STATES_TYPE_NAME != 'state_2letters':
         state_list_corresp = [dict_states_[s1][u'attributes'][u'state_2letters'] for s1 in state_list]
         
     else:

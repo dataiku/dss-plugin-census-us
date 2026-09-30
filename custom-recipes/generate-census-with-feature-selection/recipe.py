@@ -199,7 +199,7 @@ if s_found >0:
     
     logging.info(geo_header_file_dir)
     
-    geo_header = pd.read_excel(geo_header_file_dir, sheet_name=0, header=0) #sheetname
+    geo_header = pd.read_excel(geo_header_file_dir, sheet_name=0, header=0, engine="openpyxl" if geo_header_file_dir.lower().endswith(".xlsx") else "xlrd") #sheetname
 
 
     
@@ -306,11 +306,11 @@ if s_found >0:
 
                 try:
                     HEADER_PATH_FILE = fdef_dir + '/'+ seq_folder_name +'/Seq' + str(int(segment_number)) + template_fields_def['seq_files_extension']
-                    header_df = pd.read_excel(HEADER_PATH_FILE,sheet_name=0) ### 0 = 'E' #sheetname
+                    header_df = pd.read_excel(HEADER_PATH_FILE, sheet_name=0, engine="openpyxl" if HEADER_PATH_FILE.lower().endswith(".xlsx") else "xlrd") ### 0 = 'E' #sheetname
                     
                 except:
                     HEADER_PATH_FILE = fdef_dir + '/'+ seq_folder_name +'/seq' + str(int(segment_number)) + template_fields_def['seq_files_extension']
-                    header_df = pd.read_excel(HEADER_PATH_FILE,sheet_name=0) ### 0 = 'E' #sheetname
+                    header_df = pd.read_excel(HEADER_PATH_FILE, sheet_name=0, engine="openpyxl" if HEADER_PATH_FILE.lower().endswith(".xlsx") else "xlrd") ### 0 = 'E' #sheetname
                 
 
                 ### Adjust the header to fit what we need.
@@ -470,11 +470,11 @@ if s_found >0:
 
             try:
                 HEADER_PATH_FILE = fdef_dir + '/'+ seq_folder_name +'/Seq' + str(int(segment_number)) + template_fields_def['seq_files_extension']
-                header_df = pd.read_excel(HEADER_PATH_FILE,sheet_name=0) ### 0 = 'E' #sheetname
+                header_df = pd.read_excel(HEADER_PATH_FILE, sheet_name=0, engine="openpyxl" if HEADER_PATH_FILE.lower().endswith(".xlsx") else "xlrd") ### 0 = 'E' #sheetname
                     
             except:
                 HEADER_PATH_FILE = fdef_dir + '/'+ seq_folder_name +'/seq' + str(int(segment_number)) + template_fields_def['seq_files_extension']
-                header_df = pd.read_excel(HEADER_PATH_FILE,sheet_name=0) ### 0 = 'E' #sheetname
+                header_df = pd.read_excel(HEADER_PATH_FILE, sheet_name=0, engine="openpyxl" if HEADER_PATH_FILE.lower().endswith(".xlsx") else "xlrd") ### 0 = 'E' #sheetname
 
             ### Adjust the header to fit what we need.
             kh_list = ['FILEID', 'FILETYPE', 'STUSAB', 'CHARITER', 'SEQUENCE', 'LOGRECNO']

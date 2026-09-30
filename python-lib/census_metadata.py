@@ -56,11 +56,12 @@ def get_metadata_sources_from_api(url):
     
     try:
         r = requests.get(url)
+        r.raise_for_status()
         status = 'ok'
         rr= r.json()    
         v=rr['variables'].keys()
         
-        df_metadata_sources=pd.DataFrame()
+        df_metadata_sources=pd.DataFrame(columns=['concept', 'label', 'name', 'type'])
         for vv in v:
             
             if vv.endswith('E'):
@@ -89,14 +90,13 @@ def get_metadata_sources_from_api(url):
                     }
 
                 df_metadata_sources_tmp=pd.DataFrame([d])
-                df_metadata_sources=pd.concat((df_metadata_sources,df_metadata_sources_tmp),0)
+                df_metadata_sources=pd.concat((df_metadata_sources,df_metadata_sources_tmp),axis=0)
         
         return status,df_metadata_sources
     
-    except Exception as err:
-        status = 'The US Census metadata API is not available: %s' % (url)
-        logger.error("{}. Error: {}".format(status, err))
-        return status,pd.DataFrame()
+    except Exception:
+        logger.exception("Failed to retrieve or parse US Census metadata: %s", url)
+        raise
 
 
 def build_metadata(df_metadata_source,var_list):

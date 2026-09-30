@@ -48,7 +48,7 @@ if P_BATCH_SIZE_UNIT is None:
     
 strategy = get_recipe_config()['param_strategy']
 
-if get_recipe_config().get('p_id_column', None) is not None and get_recipe_config().get('p_id_column', None) is not '':
+if get_recipe_config().get('p_id_column', None) is not None and get_recipe_config().get('p_id_column', None) != '':
     use_column_id=True
     id_column = get_recipe_config().get('p_id_column', None)
     id_as_int = get_recipe_config().get('param_id_as_int', None)
